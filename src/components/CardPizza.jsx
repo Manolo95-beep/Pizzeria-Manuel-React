@@ -3,6 +3,8 @@ import { CartContext } from "../CartContext"
 
 import Pizza from "../pages/Pizza"
 
+import { Link } from "react-router-dom"
+
 
 const CardPizza = ({pizza}) => {
 
@@ -43,9 +45,15 @@ const CardPizza = ({pizza}) => {
         </h4>
 
         <div className="d-flex justify-content-between">
-          <button className="btn btn-outline-dark">
+
+          <Link to={`/pizza/${pizza.id}`}>
+
+            <button className="btn btn-outline-dark">
             👀 Ver más
-          </button>
+          </button>  
+          
+          </Link>
+          
 
           <button 
             className = "btn btn-dark"

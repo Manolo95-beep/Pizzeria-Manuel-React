@@ -2,6 +2,8 @@ import { useContext} from "react"
 import { CartContext } from "../CartContext"
 import { useState } from "react"
 
+import { UserContext } from "../UserContext"
+
 
 
 const Cart = () => {
@@ -12,6 +14,8 @@ const Cart = () => {
         removeFromCart,
         total
             } = useContext(CartContext);
+
+    const {token} = useContext(UserContext);
     
   return (
     <>
@@ -56,7 +60,7 @@ const Cart = () => {
       }
 
 
-      <button className="btn btn-dark"> Pagar </button>
+      <button className="btn btn-dark" disabled={!token}> Pagar </button>
       <h3> Total: {total }</h3>
 
     </>
