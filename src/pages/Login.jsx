@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { UserContext } from "../UserContext";
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 const Login = () => {
@@ -11,11 +12,13 @@ const Login = () => {
 
     const [largo, setLargo] = useState('')
 
-    const {token, login} = useContext(UserContext)
+    const {login} = useContext(UserContext)
+
+    const navigate = useNavigate();
 
     
 
-    const validarDatos = (e) => {
+    const validarDatos = async (e) => {
         e.preventDefault();
         if (!email.trim() || !contraseña.trim() ){
             setError(true);
@@ -30,7 +33,12 @@ const Login = () => {
         else
             setLargo(false)
 
-          alert("Inicion de sesión correcto")
+        const exito = await login (email,contraseña);
+
+        if (exito){
+            alert ("Inicio de sesion correcto")
+            navigate ("/profile")
+        }
       }
 
     
@@ -71,7 +79,14 @@ const Login = () => {
             </div>
 
             
-            <button type="submit" className="btn btn-primary" onClick={login}> Enviar </button>
+            <button 
+                type="submit" 
+                className="btn btn-primary" 
+                > 
+
+                Enviar 
+                
+            </button>
             
 
         </form>

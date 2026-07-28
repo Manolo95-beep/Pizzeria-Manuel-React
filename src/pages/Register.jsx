@@ -1,4 +1,7 @@
 import {useState} from "react";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../UserContext";
 
 
 const Register = () => {
@@ -13,7 +16,11 @@ const Register = () => {
 
     const [iguales, setIguales] =useState('')
 
-    const validarDatos = (e) => {
+    const {register} = useContext(UserContext)
+    const navigate = useNavigate();
+
+    const validarDatos = async (e) => {
+
         e.preventDefault();
         if (!email.trim() || !contraseña.trim() || !confirmarcontraseña.trim()){
             setError(true);
@@ -37,7 +44,13 @@ const Register = () => {
         else
             setIguales(false)
 
-        alert("Formulario enviado con exito")
+        
+        const exito = await register (email, contraseña);
+
+        if (exito) {
+            alert ("Usuario registrado correctamente");
+            navigate("/profile");
+        }
     }
 
         
@@ -86,7 +99,11 @@ const Register = () => {
                 value={confirmarcontraseña}
                 />
             </div>
-            <button type="submit" className="btn btn-primary"> Enviar </button>
+            <button 
+            type="submit" 
+            className="btn btn-primary"> 
+            Enviar 
+            </button>
             
 
         </form>
